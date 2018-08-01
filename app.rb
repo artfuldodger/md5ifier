@@ -8,7 +8,8 @@ end
 post '/' do
   filename = params[:file][:filename]
   file = params[:file][:tempfile]
-  new_file_path = Md5ifiedFile.new(file).new_file_path
 
-  send_file("./tmp/#{filename}", disposition: 'attachment', filename: "md5ified_#{filename}")
+  content_type 'application/csv'
+  attachment "md5ified_#{filename}"
+  Md5ifiedFile.new(file).csv
 end
